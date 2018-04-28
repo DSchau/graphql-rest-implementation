@@ -6,7 +6,7 @@ const BASE_URL = `https://dschaugraphql-backend-maiaqaojop.now.sh`;
 
 const schema = `
   type User {
-    id: String!
+    id: ID!
     name: Name
     email: String!
   }
@@ -20,25 +20,25 @@ const schema = `
     author: String!
     body: String!
     parent: String!
-    id: String!
+    id: ID!
   }
 
   type Post {
     title: String!
     author: String!
-    id: String!
+    id: ID!
     published: String!
     body: String!
     comments: [Comment]
   }
 
   type Query {
-    comments(id: String!, start: Int, limit: Int): [Comment]!
-    comment(id: String!, commentId: String!): Comment
+    comments(id: ID!, start: Int, limit: Int): [Comment]!
+    comment(id: ID!, commentId: String!): Comment
     posts(start: Int, limit: Int): [Post]!
-    post(id: String!): Post
+    post(id: ID!): Post
     users(start: Int, limit: Int): [User]!
-    user(id: String!): User
+    user(id: ID!): User
   }
 
   schema {
