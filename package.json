@@ -1,7 +1,7 @@
 {
   "name": "@dschau/graphql-backend",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "dist/index.js",
   "author": "Dustin Schau <dustinschau@gmail.com> (https://dustinschau.com)",
   "license": "MIT",
   "scripts": {
