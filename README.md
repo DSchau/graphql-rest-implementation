@@ -1,6 +1,6 @@
 # graphql-backend
 
-A graphql backend for DSchau/graphql-rest-demo
+A graphql backend for [DSchau/graphql-rest-demo](https://github.com/DSchau/graphql-rest-demo)
 
 ## Getting started
 
