@@ -1,8 +1,9 @@
 import { makeExecutableSchema, addMockFunctionsToSchema } from 'graphql-tools';
 import axios from 'axios';
+import config from 'config';
 import qs from 'query-string';
 
-const BASE_URL = `https://dschaugraphql-backend-maiaqaojop.now.sh`;
+const BASE_URL = config.get('restURL');
 
 const schema = `
   type User {

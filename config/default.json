@@ -1,4 +1,5 @@
 {
   "port": 4000,
-  "level": "debug"
+  "level": "debug",
+  "restURL": "https://dschaugraphql-backend-maiaqaojop.now.sh"
 }
