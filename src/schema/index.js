@@ -41,8 +41,14 @@ const schema = `
     user(id: ID!): User
   }
 
+  type Mutation {
+    addPost(title: String!, author: String!, published: String!, body: String): Post!
+    updatePost(id: ID!, title: String, author: String, published: String, body: String): Post
+  }
+
   schema {
     query: Query
+    mutation: Mutation
   }
 `;
 
@@ -84,7 +90,7 @@ const resolvers = {
         });
     },
     post(root, { id }) {
-      const url = `${BASE_URL}/post/${id}`;
+      const url = `${BASE_URL}/posts/${id}`;
       return axios.get(url)
         .then(response => {
           const post = response.data;
@@ -100,6 +106,16 @@ const resolvers = {
     },
     user(root, { id }) {
       return axios.get(`${BASE_URL}/users/${id}`)
+        .then(response => response.data);
+    }
+  },
+  Mutation: {
+    addPost(root, args) {
+      return axios.post(`${BASE_URL}/posts`, args)
+        .then(response => response.data);
+    },
+    updatePost(root, { id, ...body }) {
+      return axios.put(`${BASE_URL}/posts/${id}`, body)
         .then(response => response.data);
     }
   }
