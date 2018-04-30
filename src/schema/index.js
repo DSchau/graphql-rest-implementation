@@ -1,4 +1,4 @@
-import { makeExecutableSchema, addMockFunctionsToSchema } from 'graphql-tools';
+import { makeExecutableSchema } from 'graphql-tools';
 import axios from 'axios';
 import config from 'config';
 import qs from 'query-string';
@@ -30,7 +30,7 @@ const schema = `
     id: ID!
     published: String!
     body: String!
-    comments: [Comment]
+    comments(start: Int, limit: Int): [Comment]
   }
 
   type Query {
@@ -67,38 +67,12 @@ const resolvers = {
     posts(root, args) {
       const params = qs.stringify(args);
       return axios.get(`${BASE_URL}/posts?${params}`)
-        .then(response => response.data.posts)
-        .then(posts => {
-          const allComments = Promise.all(
-            posts.map(({ id }) => {
-              return axios.get(`${BASE_URL}/posts/${id}/comments`)
-                .then(res => [id, res.data.comments]);
-            })
-          );
-
-          return allComments
-            .then(comments => [posts, comments]);
-        })
-        .then(([posts, comments]) => {
-          let lookup = comments.reduce((merged, [id, comments]) => {
-            merged[id] = comments;
-            return merged;
-          }, {});
-
-          return posts.map(post => Object.assign(post, {
-            comments: lookup[post.id] || []
-          }));
-        });
+        .then(response => response.data.posts);
     },
     post(root, { id }) {
       const url = `${BASE_URL}/posts/${id}`;
       return axios.get(url)
-        .then(response => {
-          const post = response.data;
-          return axios.get(`${url}/comments`)
-            .then(response => response.data.comments)
-            .then(comments => Object.assign(post, { comments }));
-        });
+        .then(response => response.data);
     },
     users(root, args) {
       const params = qs.stringify(args);
@@ -118,6 +92,13 @@ const resolvers = {
     updatePost(root, { id, ...body }) {
       return axios.put(`${BASE_URL}/posts/${id}`, body)
         .then(response => response.data);
+    }
+  },
+  Post: {
+    async comments(post, args) {
+      const params = qs.stringify(args);
+      return axios.get(`${BASE_URL}/posts/${post.id}/comments?${params}`)
+        .then(response => response.data.comments);
     }
   }
 }
