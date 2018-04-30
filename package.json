@@ -15,9 +15,7 @@
     "bunyan": "~1.8.12",
     "config": "~1.30.0",
     "express": "~4.16.2",
-    "express-graphql": "~0.6.12",
     "graphql": "~0.13.1",
-    "graphql-tools": "~3.0.0",
     "query-string": "~6.0.0"
   },
   "devDependencies": {
@@ -25,6 +23,7 @@
     "@babel/core": "~7.0.0-beta.40",
     "@babel/preset-env": "~7.0.0-beta.40",
     "husky": "~0.14.3",
+    "prettier": "~1.12.1",
     "pretty-quick": "~1.4.1"
   }
 }
