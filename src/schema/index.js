@@ -95,7 +95,7 @@ const resolvers = {
     }
   },
   Post: {
-    async comments(post, args) {
+    comments(post, args) {
       const params = qs.stringify(args);
       return axios.get(`${BASE_URL}/posts/${post.id}/comments?${params}`)
         .then(response => response.data.comments);
