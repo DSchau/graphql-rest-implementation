@@ -25,6 +25,7 @@
     "@babel/core": "~7.0.0-beta.40",
     "@babel/preset-env": "~7.0.0-beta.40",
     "husky": "~0.14.3",
+    "prettier": "~1.12.1",
     "pretty-quick": "~1.4.1"
   }
 }
